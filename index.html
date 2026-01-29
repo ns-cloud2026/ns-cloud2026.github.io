@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NS Cloud - Enterprise GPU Solutions | Powered by NVIDIA</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Kanit:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        thai: ['Kanit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        obsidian: '#000000',
+                        charcoal: '#0a0a0a',
+                        nvidia: {
+                            green: '#76b900',
+                            gold: '#facc15',
+                            red: '#ef4444'
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 1s ease-out forwards',
+                        'slow-zoom': 'zoomEffect 20s infinite alternate',
+                        'modal-pop': 'modalPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        zoomEffect: {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.1)' },
+                        },
+                        modalPop: {
+                            '0%': { opacity: '0', transform: 'scale(0.9) translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .en-font {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .pro-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .pro-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.9);
+        }
+
+        .standard-card:hover {
+            border-color: #facc15;
+        }
+
+        .enterprise-card:hover {
+            border-color: #ef4444;
+        }
+
+        .hero-bg-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: #000;
+        }
+
+        .slide-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        .slide-item.active {
+            opacity: 0.6;
+            /* ปรับความเข้มของภาพพื้นหลังให้ชัดขึ้น */
+        }
+
+        .btn-nvidia {
+            background-color: #76b900;
+            color: black;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-nvidia:hover {
+            background-color: #8ade00;
+            transform: scale(1.02);
+        }
+
+        .modal-active {
+            display: flex !important;
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #76b900;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-nvidia-green selection:text-black">
+
+    <nav class="w-full border-b border-white/5 bg-black/95 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 ">
+                        <img src="NS.png" alt="Logo">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-black tracking-tight text-white en-font leading-none uppercase">NS
+                            CLOUD</span>
+                        <span
+                            class="text-[9px] text-gray-500 uppercase tracking-[0.25em] leading-none mt-1 font-bold">Professional
+                            Infrastructure</span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="hidden lg:flex items-center space-x-10 text-[12px] font-bold uppercase tracking-widest text-gray-400">
+                <a href="#pricing" class="hover:text-nvidia-green transition-colors">Pricing</a>
+                <a href="#specifications" class="hover:text-nvidia-green transition-colors">Hardware</a>
+                <a href="#requirements" class="hover:text-nvidia-green transition-colors">Connectivity</a>
+            </div>
+
+            <div class="flex items-center space-x-6">
+                <button onclick="openModal()"
+                    class="btn-nvidia px-6 py-2.5 rounded-sm text-[11px] uppercase tracking-wider">
+                    Rent Now
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-[85vh] flex items-center justify-center overflow-hidden">
+        <div class="hero-bg-slider">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-10"></div>
+            <div class="slide-item active animate-slow-zoom"
+                style="background-image: url('https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/rtx-pro-6000-blackwell-workstation-edition/nvidia-geforce-rtx-pro-6000-bm-l580-d.jpg');">
+            </div>
+            <div class="slide-item animate-slow-zoom"
+                style="background-image: url('https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/rtx-pro-6000-blackwell-workstation-edition/nvidia-workstation-6000-series-family-bm-md460-offset-d.jpg');">
+            </div>
+        </div>
+
+        <div class="relative z-20 text-center max-w-5xl px-6 animate-fade-in-up">
+            <div
+                class="inline-block px-4 py-1.5 border border-nvidia-green/30 bg-nvidia-green/5 text-nvidia-green text-[10px] font-black uppercase tracking-widest mb-8 rounded-full">
+                Enterprise GPU Rental Service
+            </div>
+            <h1
+                class="text-5xl md:text-8xl font-black mb-8 tracking-tighter leading-[0.9] text-white en-font uppercase italic">
+                Empowering <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600">Innovation</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mb-12 font-medium leading-relaxed">
+                ให้เช่าคอมพิวเตอร์รายชั่วโมง ประสิทธิภาพระดับสูงสุดสำหรับงาน AI, Rendering
+                และ Data Science ด้วยขุมพลัง AMD EPYC และ NVIDIA รุ่นล่าสุด
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <button onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})"
+                    class="w-full sm:w-auto px-10 py-4 btn-nvidia rounded-sm text-xs uppercase tracking-widest shadow-xl font-bold">
+                    START DEPLOYMENT
+                </button>
+                <button onclick="copyLineID()"
+                    class="w-full sm:w-auto px-10 py-4 border border-white/20 hover:border-white text-white rounded-sm text-xs uppercase tracking-widest transition-all">
+                    Line ID: nbfdev_9954
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section
+        class="relative bg-black py-24 md:py-32 border-y border-white/5 overflow-hidden min-h-[500px] flex items-center">
+        <div class="absolute right-0 top-0 w-full md:w-2/3 h-full z-0 opacity-60 md:opacity-100">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/40 to-transparent z-10"></div>
+            <img src="https://www.nvidia.com/content/dam/en-zz/Solutions/products/workstations/professional-desktop-gpus/rtx-pro-6000-family/rtx-pro-6000-blackwell-bbm-d.jpg"
+                alt="NVIDIA RTX PRO 6000" class="w-full h-full object-cover object-center transition-all duration-1000">
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full">
+            <div class="w-full md:w-1/2 space-y-6">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white leading-tight uppercase en-font">
+                    NVIDIA RTX PRO 6000 <br>
+                    <span class="text-nvidia-green">Blackwell Series</span>
+                </h2>
+                <p class="text-gray-300 text-lg md:text-xl font-medium leading-relaxed max-w-md">
+                    Breakthrough AI and visual computing, from desktop to data center.
+                </p>
+                <div class="pt-4">
+                    <button onclick="openModal()"
+                        class="px-8 py-3 border border-white/20 hover:border-white text-white uppercase text-[10px] tracking-[0.3em] font-black transition-all rounded-sm bg-black/40 backdrop-blur-sm">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="specifications" class="max-w-7xl mx-auto px-6 py-32 space-y-32">
+        <div class="flex flex-col lg:flex-row items-center gap-20">
+            <div class="w-full lg:w-3/5 relative group">
+                <div
+                    class="absolute -inset-2 bg-nvidia-green/10 blur-3xl opacity-0 group-hover:opacity-100 transition duration-1000">
+                </div>
+                <img src="f1d709e23040bd76554988308e792d02-hi-removebg-preview.png" alt="High Performance Server"
+                    class="relative w-full h-[450px] object-cover rounded-sm border border-white/10 transition-all duration-1000">
+            </div>
+            <div class="w-full lg:w-2/5">
+                <h3
+                    class="text-4xl font-black text-white mb-6 en-font tracking-tight uppercase italic underline decoration-nvidia-green underline-offset-8">
+                    Raw Performance</h3>
+                <p class="text-gray-300 leading-relaxed mb-8 text-lg">
+                    สถาปัตยกรรมระดับ Enterprise ที่ใช้หน่วยประมวลผล <strong>AMD EPYC 9654</strong> พร้อมแรมความจุสูง
+                    เพื่อปลดล็อกขีดจำกัดในการทำงานที่ซับซ้อนและใช้ทรัพยากรสูงได้อย่างไร้รอยต่อ
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 bg-white/5 border border-white/10 rounded-sm text-center">
+                        <div class="text-nvidia-green font-black text-2xl mb-1">288+</div>
+                        <div class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">CPU Cores Max</div>
+                    </div>
+                    <div class="p-4 bg-white/5 border border-white/10 rounded-sm text-center">
+                        <div class="text-nvidia-green font-black text-2xl mb-1">1 TB</div>
+                        <div class="text-[10px] text-gray-500 uppercase tracking-widest font-bold">Memory Capacity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <img src="https://uae.microless.com/cdn/category_files/44cb7b4d411ba5a7d0cdf67c4ce689c8.png">
+    </section>
+
+    <main id="pricing" class="bg-[#050505] py-32 border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-20 text-center">
+                <h2 class="text-5xl font-black text-white mb-6 en-font tracking-tighter uppercase italic">Infrastructure
+                    Pricing</h2>
+                <div class="w-24 h-1 bg-nvidia-green mx-auto mb-8"></div>
+                <p class="text-gray-500 font-medium uppercase tracking-[0.2em] text-xs">Reliable Performance • Hourly
+                    Billing</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-16">
+                <div class="space-y-10">
+                    <div class="flex items-center space-x-4 border-l-4 border-nvidia-gold pl-6">
+                        <h3 class="text-3xl font-black text-white uppercase italic en-font">Standard</h3>
+                        <span class="text-[10px] font-bold text-nvidia-gold uppercase tracking-[0.3em]">RTX 5090
+                            Series</span>
+                    </div>
+                    <div id="standard-plans" class="grid gap-6"></div>
+                </div>
+
+                <div class="space-y-10">
+                    <div class="flex items-center space-x-4 border-l-4 border-nvidia-red pl-6">
+                        <h3 class="text-3xl font-black text-white uppercase italic en-font">Enterprise</h3>
+                        <span class="text-[10px] font-bold text-nvidia-red uppercase tracking-[0.3em]">PRO 6000
+                            Series</span>
+                    </div>
+                    <div id="pro-plans" class="grid gap-6"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section id="requirements" class="max-w-7xl mx-auto px-6 py-32 space-y-8">
+        <div
+            class="bg-charcoal border border-white/5 p-12 flex flex-col md:flex-row items-center gap-12 rounded-sm relative overflow-hidden">
+            <div
+                class="absolute top-0 right-0 w-64 h-64 bg-nvidia-green/5 blur-[100px] rounded-full pointer-events-none">
+            </div>
+            <div class="w-24 h-24 bg-nvidia-green/10 rounded-full flex items-center justify-center flex-shrink-0">
+                <i class="ph-fill ph-broadcast text-5xl text-nvidia-green"></i>
+            </div>
+            <div>
+                <h3 class="text-2xl font-black text-white mb-4 uppercase italic">High-Speed Connection Required</h3>
+                <p class="text-gray-300 text-lg leading-relaxed font-medium">
+                    เพื่อความลื่นไหลในการใช้งานแบบ Real-time เราแนะนำให้เชื่อมต่อผ่าน <strong>Fiber Optic
+                        300Mbps+</strong>
+                    และใช้งานผ่านสาย LAN เพื่อค่า Latency ที่เสถียรที่สุดในระดับ <span class="text-nvidia-green">2-5Gbps
+                        Backbone</span> ของเรา
+                </p>
+            </div>
+        </div>
+
+        <div class="bg-amber-900/5 border border-amber-500/20 p-8 rounded-sm">
+            <div class="flex items-start gap-4">
+                <i class="ph-bold ph-warning-circle text-2xl text-amber-500 mt-1"></i>
+                <div class="space-y-4">
+                    <h4 class="text-lg font-black text-white uppercase tracking-wider">ข้อควรระวังและข้อจำกัดการใช้งาน
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-400 leading-relaxed">
+                        <div class="space-y-2">
+                            <p class="font-bold text-gray-300">● การเชื่อมต่อและอินเทอร์เน็ต</p>
+                            <p>หากระบบมีความล่าช้า (Delay) หรือไม่สามารถเชื่อมต่อได้
+                                โปรดตรวจสอบความเร็วของอินเทอร์เน็ตของท่าน</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="font-bold text-gray-300">● วัตถุประสงค์การใช้งาน</p>
+                            <p>เซิร์ฟเวอร์ของเราออกแบบมาเพื่อการทำงาน (Work/Productivity) เท่านั้น
+                                ไม่แนะนำสำหรับการเล่นเกม</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black pt-24 pb-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 text-center md:text-left">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10 mb-20">
+                <div>
+                    <div class="flex items-center justify-center md:justify-start space-x-3 mb-6">
+                        <div class="w-10 h-10">
+                            <img src="NS.png" alt="Logo">
+                        </div>
+                        <span class="text-2xl font-black text-white en-font tracking-tighter uppercase italic">NS
+                            CLOUD</span>
+                    </div>
+                    <p class="text-gray-600 text-xs font-bold uppercase tracking-widest">Premium GPU Infrastructure
+                        Services</p>
+                </div>
+                <div class="flex flex-col items-center md:items-end">
+                    <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Official Line
+                        Support</div>
+                    <button onclick="copyLineID()"
+                        class="text-3xl font-black text-white hover:text-nvidia-green transition-colors en-font tracking-tighter italic">
+                        ID: nbfdev_9954
+                    </button>
+                </div>
+            </div>
+            <div
+                class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between gap-4 text-[10px] font-bold text-gray-600 uppercase tracking-widest">
+                <div>&copy; 2024 NS Cloud Infrastructure Services.</div>
+                <div class="flex items-center justify-center space-x-2">
+                    <span class="w-2 h-2 bg-nvidia-green rounded-full"></span>
+                    <span>Systems Operational</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="contactModal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center px-4 bg-black/95 backdrop-blur-md">
+        <div class="pro-card w-full max-w-md p-10 rounded-sm relative shadow-2xl opacity-0 transform translate-y-4">
+            <button onclick="closeModal()"
+                class="absolute top-6 right-6 text-gray-500 hover:text-white transition-colors">
+                <i class="ph ph-x text-2xl"></i>
+            </button>
+            <div class="text-center mb-10">
+                <div class="w-16 h-1 bg-nvidia-green mx-auto mb-8 shadow-[0_0_10px_rgba(118,185,0,0.5)]"></div>
+                <h3 class="text-2xl font-black text-white en-font uppercase tracking-tight italic">Initialize Instance
+                </h3>
+                <p class="text-sm text-gray-500 mt-2 font-medium">ติดต่อเจ้าหน้าที่ผ่าน Line เพื่อขอรับสิทธิ์เข้าใช้งาน
+                </p>
+            </div>
+            <div class="bg-black p-6 border border-white/5 mb-8 flex justify-between items-center group cursor-pointer hover:border-nvidia-green/40 transition-colors"
+                onclick="copyLineID()">
+                <div>
+                    <div class="text-[9px] text-gray-600 uppercase font-black tracking-widest mb-1">Official Line ID
+                    </div>
+                    <div class="font-mono text-nvidia-green font-bold text-lg">nbfdev_9954</div>
+                </div>
+                <i class="ph-bold ph-copy text-gray-700 group-hover:text-white transition-colors text-xl"></i>
+            </div>
+            <a href="https://line.me/ti/p/~nbfdev_9954" target="_blank"
+                class="w-full py-4 btn-nvidia rounded-sm flex items-center justify-center space-x-3 transition-all uppercase text-[11px] font-black shadow-lg">
+                <span>Open Line Chat</span>
+                <i class="ph-bold ph-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div id="toast"
+        class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[110] px-6 py-3 bg-nvidia-green text-black text-[11px] font-black rounded-sm shadow-2xl transition-all duration-300 translate-y-20 opacity-0 pointer-events-none uppercase tracking-widest">
+        Copied to Clipboard
+    </div>
+
+    <script>
+        const standardPlans = [
+            { name: "Space 1", price: 49, cpu: "AMD EPYC 9654 48 Cores", ram: "120 GB", gpu: "RTX 5090 32GB", ssd: "NVME SSD 512GB" },
+            { name: "Space 2", price: 55, cpu: "AMD EPYC 9654 96 Cores", ram: "240 GB", gpu: "RTX 5090 32GBx2", ssd: "NVME SSD 1TB" },
+            { name: "Space 3", price: 70, cpu: "AMD EPYC 9654 144 Cores", ram: "360 GB", gpu: "RTX 5090 32GBx3", ssd: "NVME SSD 2TB" },
+            { name: "Space 4", price: 100, cpu: "AMD EPYC 9654 192 Cores", ram: "480 GB", gpu: "RTX 5090 32GBx4", ssd: "NVME SSD 5TB" },
+        ];
+
+        const proPlans = [
+            { name: "Space 1", price: 100, cpu: "AMD EPYC 9654 48 Cores", ram: "184 GB", gpu: "RTX PRO 6000 Blackwell 96GB", ssd: "NVME SSD 512GB" },
+            { name: "Space 2", price: 170, cpu: "AMD EPYC 9654 96 Cores", ram: "368 GB", gpu: "RTX PRO 6000 Blackwell 96GBx2", ssd: "NVME SSD 10TB" },
+            { name: "Space 3", price: 190, cpu: "AMD EPYC 9654 192 Cores", ram: "736 GB", gpu: "RTX PRO 6000 Blackwell 96GBx4", ssd: "NVME SSD 20TB" },
+            { name: "Space 4", price: 250, cpu: "AMD EPYC 9654 288 Cores", ram: "1 TB", gpu: "RTX PRO 6000 Blackwell 96GBx6", ssd: "NVME SSD 30TB" },
+        ];
+
+        function renderPlans(data, containerId, type) {
+            const container = document.getElementById(containerId);
+            const isEnterprise = type === 'enterprise';
+            const hoverBorderClass = isEnterprise ? 'enterprise-card' : 'standard-card';
+            const priceColor = isEnterprise ? 'text-nvidia-red' : 'text-nvidia-gold';
+            const badgeBg = isEnterprise ? 'bg-nvidia-red/10 text-nvidia-red border-nvidia-red/20' : 'bg-nvidia-gold/10 text-nvidia-gold border-nvidia-gold/20';
+
+            container.innerHTML = data.map(plan => `
+                <div class="pro-card p-6 rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-6 group cursor-default ${hoverBorderClass}">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-4 mb-3">
+                            <span class="px-2 py-0.5 text-[9px] font-black border uppercase tracking-widest ${badgeBg}">${plan.name}</span>
+                            <div class="text-2xl font-black ${priceColor} en-font italic">${plan.price}.- <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">/ Hr</span></div>
+                        </div>
+                        <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8">
+                            <span class="flex items-center"><i class="ph-fill ph-cpu mr-2 opacity-50"></i> ${plan.cpu}</span>
+                            <span class="flex items-center"><i class="ph-fill ph-memory mr-2 opacity-50"></i> RAM ${plan.ram}</span>
+                            <span class="flex items-center text-gray-300"><i class="ph-fill ph-graphics-card mr-2 opacity-50"></i> ${plan.gpu}</span>
+                            <span class="flex items-center"><i class="ph-fill ph-hard-drive mr-2 opacity-50"></i> ${plan.ssd}</span>
+                        </div>
+                    </div>
+                    <button onclick="openModal()" class="px-5 py-2 border border-white/5 hover:border-white/20 text-gray-500 hover:text-white text-[9px] font-black uppercase tracking-[0.2em] transition-all rounded-sm bg-white/5">
+                        Initialize
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        let slideIndex = 0;
+        function runSlider() {
+            const slides = document.querySelectorAll(".slide-item");
+            slides.forEach(s => s.classList.remove("active"));
+            slideIndex = (slideIndex + 1) % slides.length;
+            slides[slideIndex].classList.add("active");
+            setTimeout(runSlider, 6000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPlans(standardPlans, 'standard-plans', 'standard');
+            renderPlans(proPlans, 'pro-plans', 'enterprise');
+            runSlider();
+        });
+
+        function copyLineID() {
+            const id = "nbfdev_9954";
+            const textArea = document.createElement("textarea");
+            textArea.value = id;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2500);
+        }
+
+        function openModal() {
+            const modal = document.getElementById('contactModal');
+            const inner = modal.querySelector('.pro-card');
+            modal.classList.add('modal-active');
+            modal.classList.remove('hidden');
+            setTimeout(() => inner.classList.add('animate-modal-pop'), 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('contactModal');
+            const inner = modal.querySelector('.pro-card');
+            inner.classList.remove('animate-modal-pop');
+            modal.classList.remove('modal-active');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+
+        window.onclick = e => { if (e.target.id === 'contactModal') closeModal(); }
+    </script>
+</body>
+
+</html>
