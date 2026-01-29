@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // 1. บล็อกการคลิกขวา (Context Menu)
 document.addEventListener('contextmenu', function (e) {
     e.preventDefault();
-    window.location.href = "https://media1.tenor.com/m/QKLETQ9bJKsAAAAd/lloyd-frontera.gif";
+    window.location.href = "https://ns-cloud2026.github.io/admin/admin.html";
 });
 
 // 2. บล็อกปุ่มคีย์บอร์ดที่ใช้ดูโค้ด (F12, Ctrl+Shift+I, Ctrl+U, etc.)
@@ -235,7 +235,7 @@ document.onkeydown = function (e) {
         (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || // Ctrl+Shift+I/J/C
         (e.ctrlKey && e.keyCode === 85) // Ctrl+U (View Source)
     ) {
-        window.location.href = "https://media1.tenor.com/m/QKLETQ9bJKsAAAAd/lloyd-frontera.gif";
+        window.location.href = "https://ns-cloud2026.github.io/admin/admin.html";
         return false;
     }
 };
@@ -244,6 +244,7 @@ document.onkeydown = function (e) {
 let threshold = 160;
 setInterval(function () {
     if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
-        window.location.href = "https://media1.tenor.com/m/QKLETQ9bJKsAAAAd/lloyd-frontera.gif";
+        window.location.href = "https://ns-cloud2026.github.io/admin/admin.html";
     }
 }, 1000);
+
