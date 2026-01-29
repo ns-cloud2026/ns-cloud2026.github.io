@@ -162,6 +162,31 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #76b900;
         }
+
+        .slide-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            /* ปรับการ Fade ให้สมูทขึ้น */
+        }
+
+        .slide-item.active {
+            opacity: 1;
+            /* แสดงผล VDO */
+        }
+
+        /* เพิ่ม Effect Overlay ให้ดู Cinematic */
+        .hero-bg-slider::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            z-index: 5;
+        }
     </style>
 </head>
 
@@ -202,12 +227,18 @@
 
     <header class="relative h-[85vh] flex items-center justify-center overflow-hidden">
         <div class="hero-bg-slider">
-            <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black z-10"></div>
-            <div class="slide-item active animate-slow-zoom"
-                style="background-image: url('https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/rtx-pro-6000-blackwell-workstation-edition/nvidia-geforce-rtx-pro-6000-bm-l580-d.jpg');">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black z-10"></div>
+
+            <div class="slide-item active">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60">
+                    <source src="NVIDIARTXPRO6000BlackwellWorkstationEdition.mp4" type="video/mp4">
+                </video>
             </div>
-            <div class="slide-item animate-slow-zoom"
-                style="background-image: url('https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/rtx-pro-6000-blackwell-workstation-edition/nvidia-workstation-6000-series-family-bm-md460-offset-d.jpg');">
+
+            <div class="slide-item">
+                <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60">
+                    <source src="GeForceRTX50SeriesGPUsandLaptops _ Game Changer.mp4" type="video/mp4">
+                </video>
             </div>
         </div>
 
@@ -221,23 +252,32 @@
                 Empowering <br />
                 <span class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-600">Innovation</span>
             </h1>
-            <p class="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mb-12 font-medium leading-relaxed">
-                ให้เช่าคอมพิวเตอร์รายชั่วโมง ประสิทธิภาพระดับสูงสุดสำหรับงาน AI, Rendering
-                และ Data Science ด้วยขุมพลัง AMD EPYC และ NVIDIA รุ่นล่าสุด
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
-                <button onclick="document.getElementById('pricing').scrollIntoView({behavior: 'smooth'})"
-                    class="w-full sm:w-auto px-10 py-4 btn-nvidia rounded-sm text-xs uppercase tracking-widest shadow-xl font-bold">
-                    START DEPLOYMENT
-                </button>
-                <button onclick="copyLineID()"
-                    class="w-full sm:w-auto px-10 py-4 border border-white/20 hover:border-white text-white rounded-sm text-xs uppercase tracking-widest transition-all">
-                    Line ID: nbfdev_9954
-                </button>
-            </div>
         </div>
     </header>
 
+
+    <section id="video-showcase" class="max-w-7xl mx-auto px-6 py-24 border-t border-white/5">
+        <div class="mb-12 text-center md:text-left">
+            <h2 class="text-3xl font-black text-white mb-4 en-font uppercase italic tracking-tighter">
+                <i class="ph-fill ph-play-circle text-nvidia-green mr-2"></i>NVIDIA RTX PRO 6000 Blackwell Workstation
+                Edition
+            </h2>
+            <p class="text-gray-400 font-medium">สัมผัสความแรงของระบบผ่านวิดีโอทดสอบจริง</p>
+        </div>
+
+        <div
+            class="relative group aspect-video w-full max-w-5xl mx-auto overflow-hidden rounded-sm border border-white/10 bg-charcoal">
+            <video id="observerVideo" muted loop playsinline
+                class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                <source src="NVIDIARTXPRO6000BlackwellWorkstationEdition.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+            <div
+                class="absolute inset-0 pointer-events-none border-[1px] border-white/5 group-hover:border-nvidia-green/20 transition-colors duration-500">
+            </div>
+        </div>
+    </section>
     <section
         class="relative bg-black py-24 md:py-32 border-y border-white/5 overflow-hidden min-h-[500px] flex items-center">
         <div class="absolute right-0 top-0 w-full md:w-2/3 h-full z-0 opacity-60 md:opacity-100">
@@ -298,6 +338,101 @@
         <img src="https://uae.microless.com/cdn/category_files/44cb7b4d411ba5a7d0cdf67c4ce689c8.png">
     </section>
 
+
+    <section class="max-w-7xl mx-auto px-6 py-32 border-t border-white/5">
+        <div class="mb-16">
+            <h2 class="text-4xl font-black text-white mb-4 en-font uppercase italic tracking-tighter">Performance
+                Showcase</h2>
+            <div class="w-16 h-1 bg-nvidia-green mb-6"></div>
+            <p class="text-gray-400 font-medium">ภาพบรรยากาศการทดสอบและใช้งานจริงบนระบบ NS Cloud</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="pro-card group overflow-hidden rounded-sm border border-white/10 cursor-pointer"
+                onclick="openImageModal('03.png')">
+                <div class="aspect-video bg-neutral-900 overflow-hidden">
+                    <img src="03.png" alt="OLLAMA"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>
+                <div class="p-6">
+                    <div class="text-[10px] text-nvidia-green font-bold uppercase tracking-widest mb-2">OLLAMA</div>
+                    <p class="text-sm text-gray-400">รันโมเดล AI ขนาดใหญ่ได้รวดเร็วด้วย VRAM สูงสุด 96GB ต่อใบ</p>
+                </div>
+            </div>
+
+            <div class="pro-card group overflow-hidden rounded-sm border border-white/10 cursor-pointer"
+                onclick="openImageModal('01.png')">
+                <div class="aspect-video bg-neutral-900 overflow-hidden">
+                    <img src="01.png" alt="Blender"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>
+                <div class="p-6">
+                    <div class="text-[10px] text-nvidia-green font-bold uppercase tracking-widest mb-2">3D Rendering &
+                        Simulation</div>
+                    <p class="text-sm text-gray-400">เพิ่มขีดจำกัดการเรนเดอร์ด้วย <strong>Blender Cycles</strong>
+                        บนขุมพลัง GPU</p>
+                </div>
+            </div>
+
+            <div class="pro-card group overflow-hidden rounded-sm border border-white/10 cursor-pointer"
+                onclick="openImageModal('02.png')">
+                <div class="aspect-video bg-neutral-900 overflow-hidden">
+                    <img src="02.png" alt="Blender"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-80 group-hover:opacity-100">
+                </div>
+                <div class="p-6">
+                    <div class="text-[10px] text-nvidia-green font-bold uppercase tracking-widest mb-2">3D Rendering &
+                        Simulation</div>
+                    <p class="text-sm text-gray-400">เพิ่มขีดจำกัดการเรนเดอร์ด้วย <strong>Blender Cycles</strong>
+                        บนขุมพลัง GPU</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div id="imageModal"
+        class="fixed inset-0 z-[120] hidden items-center justify-center bg-black/95 backdrop-blur-xl p-4 transition-all duration-300">
+        <button onclick="closeImageModal()"
+            class="absolute top-10 right-10 text-white/50 hover:text-white transition-colors z-[130]">
+            <i class="ph ph-x text-4xl"></i>
+        </button>
+        <img id="modalImg" src="" alt="Preview"
+            class="max-w-full max-h-full object-contain rounded-sm shadow-2xl transform scale-95 transition-transform duration-300">
+    </div>
+
+    <section class="bg-gradient-to-b from-charcoal to-black py-24 border-y border-white/5">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <div
+                class="inline-flex items-center space-x-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                <span class="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em]">Network
+                    Optimization</span>
+            </div>
+
+            <h2 class="text-3xl md:text-5xl font-black text-white mb-6 en-font italic uppercase">Boost Your Connection
+            </h2>
+            <p class="text-gray-400 text-lg mb-10 max-w-2xl mx-auto">
+                เพื่อประสบการณ์การใช้งานที่ลื่นไหลที่สุดและลดค่า Latency ในการ Remote
+                เราแนะนำให้ติดตั้ง <strong>1.1.1.1 with WARP</strong> ก่อนเข้าใช้งานเซิร์ฟเวอร์
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a href="https://one.one.one.one/" target="_blank"
+                    class="w-full sm:w-auto px-12 py-4 bg-white text-black font-black text-xs uppercase tracking-widest rounded-sm hover:bg-gray-200 transition-all flex items-center justify-center space-x-3">
+                    <i class="ph-bold ph-download-simple text-lg"></i>
+                    <span>Download 1.1.1.1 + WARP</span>
+                </a>
+                <div class="text-[10px] text-gray-600 font-bold uppercase tracking-[0.3em]">
+                    Available for Windows / macOS / Linux
+                </div>
+            </div>
+        </div>
+    </section>
     <main id="pricing" class="bg-[#050505] py-32 border-y border-white/5">
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-20 text-center">
@@ -349,29 +484,41 @@
                 </p>
             </div>
         </div>
-
-        <div class="bg-amber-900/5 border border-amber-500/20 p-8 rounded-sm">
+        <div class="bg-red-900/10 border border-red-500/20 p-8 rounded-sm">
             <div class="flex items-start gap-4">
-                <i class="ph-bold ph-warning-circle text-2xl text-amber-500 mt-1"></i>
+                <i class="ph-bold ph-warning-circle text-2xl text-red-500 mt-1"></i>
                 <div class="space-y-4">
-                    <h4 class="text-lg font-black text-white uppercase tracking-wider">ข้อควรระวังและข้อจำกัดการใช้งาน
-                    </h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-400 leading-relaxed">
-                        <div class="space-y-2">
-                            <p class="font-bold text-gray-300">● การเชื่อมต่อและอินเทอร์เน็ต</p>
-                            <p>หากระบบมีความล่าช้า (Delay) หรือไม่สามารถเชื่อมต่อได้
-                                โปรดตรวจสอบความเร็วของอินเทอร์เน็ตของท่าน</p>
+                    <h4 class="text-lg font-black text-white uppercase tracking-wider italic">
+                        ข้อควรระวังและเงื่อนไขการใช้บริการ (Terms of Service)</h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-gray-400 leading-relaxed">
+                        <div class="space-y-2 border-l-2 border-red-500/30 pl-4">
+                            <p class="font-bold text-red-400 uppercase tracking-tighter">●
+                                การติดตั้งซอฟต์แวร์และความรับผิดชอบ</p>
+                            <p>หากระบบเกิดความเสียหายหรือทำงานผิดปกติจากการที่ผู้ใช้ติดตั้ง <span
+                                    class="text-white underline">โปรแกรมที่มีความเสี่ยงหรือซอฟต์แวร์อันตราย</span>
+                                ทางเราจะไม่รับผิดชอบต่อความเสียหายหรือข้อมูลสูญหายในทุกกรณี</p>
                         </div>
-                        <div class="space-y-2">
+
+                        <div class="space-y-2 border-l-2 border-nvidia-green/30 pl-4">
+                            <p class="font-bold text-nvidia-green uppercase tracking-tighter">● การแก้ปัญหาความล่าช้า
+                                (Latency/Delay)</p>
+                            <p>หากท่านพบปัญหาการใช้งานติดขัดหรือดีเลย์ <span
+                                    class="text-white italic">กรุณาตรวจสอบว่าท่านได้ติดตั้งโปรแกรมที่ทางเราแนะนำหรือยัง</span>
+                                ซึ่งจะช่วยปรับปรุงความเสถียรให้ลื่นไหลขึ้นอย่างเห็นได้ชัด</p>
+                        </div>
+
+                        <div class="space-y-2 border-l-2 border-white/10 pl-4 md:col-span-2">
                             <p class="font-bold text-gray-300">● วัตถุประสงค์การใช้งาน</p>
-                            <p>เซิร์ฟเวอร์ของเราออกแบบมาเพื่อการทำงาน (Work/Productivity) เท่านั้น
-                                ไม่แนะนำสำหรับการเล่นเกม</p>
+                            <p>เซิร์ฟเวอร์ออกแบบมาเพื่อการทำงาน (Work/Productivity/AI) เท่านั้น
+                                ไม่รองรับการใช้งานเพื่อการเล่นเกม</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <footer class="bg-black pt-24 pb-12 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6 text-center md:text-left">
@@ -443,99 +590,83 @@
         Copied to Clipboard
     </div>
 
-    <script>
-        const standardPlans = [
-            { name: "Space 1", price: 49, cpu: "AMD EPYC 9654 48 Cores", ram: "120 GB", gpu: "RTX 5090 32GB", ssd: "NVME SSD 512GB" },
-            { name: "Space 2", price: 55, cpu: "AMD EPYC 9654 96 Cores", ram: "240 GB", gpu: "RTX 5090 32GBx2", ssd: "NVME SSD 1TB" },
-            { name: "Space 3", price: 70, cpu: "AMD EPYC 9654 144 Cores", ram: "360 GB", gpu: "RTX 5090 32GBx3", ssd: "NVME SSD 2TB" },
-            { name: "Space 4", price: 100, cpu: "AMD EPYC 9654 192 Cores", ram: "480 GB", gpu: "RTX 5090 32GBx4", ssd: "NVME SSD 5TB" },
-        ];
 
-        const proPlans = [
-            { name: "Space 1", price: 100, cpu: "AMD EPYC 9654 48 Cores", ram: "184 GB", gpu: "RTX PRO 6000 Blackwell 96GB", ssd: "NVME SSD 512GB" },
-            { name: "Space 2", price: 170, cpu: "AMD EPYC 9654 96 Cores", ram: "368 GB", gpu: "RTX PRO 6000 Blackwell 96GBx2", ssd: "NVME SSD 10TB" },
-            { name: "Space 3", price: 190, cpu: "AMD EPYC 9654 192 Cores", ram: "736 GB", gpu: "RTX PRO 6000 Blackwell 96GBx4", ssd: "NVME SSD 20TB" },
-            { name: "Space 4", price: 250, cpu: "AMD EPYC 9654 288 Cores", ram: "1 TB", gpu: "RTX PRO 6000 Blackwell 96GBx6", ssd: "NVME SSD 30TB" },
-        ];
-
-        function renderPlans(data, containerId, type) {
-            const container = document.getElementById(containerId);
-            const isEnterprise = type === 'enterprise';
-            const hoverBorderClass = isEnterprise ? 'enterprise-card' : 'standard-card';
-            const priceColor = isEnterprise ? 'text-nvidia-red' : 'text-nvidia-gold';
-            const badgeBg = isEnterprise ? 'bg-nvidia-red/10 text-nvidia-red border-nvidia-red/20' : 'bg-nvidia-gold/10 text-nvidia-gold border-nvidia-gold/20';
-
-            container.innerHTML = data.map(plan => `
-                <div class="pro-card p-6 rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-6 group cursor-default ${hoverBorderClass}">
-                    <div class="flex-1">
-                        <div class="flex items-center space-x-4 mb-3">
-                            <span class="px-2 py-0.5 text-[9px] font-black border uppercase tracking-widest ${badgeBg}">${plan.name}</span>
-                            <div class="text-2xl font-black ${priceColor} en-font italic">${plan.price}.- <span class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">/ Hr</span></div>
-                        </div>
-                        <div class="text-[10px] font-bold text-gray-500 uppercase tracking-widest grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-8">
-                            <span class="flex items-center"><i class="ph-fill ph-cpu mr-2 opacity-50"></i> ${plan.cpu}</span>
-                            <span class="flex items-center"><i class="ph-fill ph-memory mr-2 opacity-50"></i> RAM ${plan.ram}</span>
-                            <span class="flex items-center text-gray-300"><i class="ph-fill ph-graphics-card mr-2 opacity-50"></i> ${plan.gpu}</span>
-                            <span class="flex items-center"><i class="ph-fill ph-hard-drive mr-2 opacity-50"></i> ${plan.ssd}</span>
-                        </div>
+    <!-- Cookie Banner -->
+    <div id="cookie-banner"
+        class="fixed bottom-0 left-0 right-0 z-[200] transform translate-y-full transition-transform duration-500">
+        <div class="max-w-7xl mx-auto px-6 pb-8">
+            <div
+                class="bg-charcoal/95 backdrop-blur-xl border border-white/10 p-6 md:p-8 rounded-sm shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-start gap-4">
+                    <div
+                        class="w-12 h-12 bg-nvidia-green/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i class="ph-fill ph-cookie text-2xl text-nvidia-green"></i>
                     </div>
-                    <button onclick="openModal()" class="px-5 py-2 border border-white/5 hover:border-white/20 text-gray-500 hover:text-white text-[9px] font-black uppercase tracking-[0.2em] transition-all rounded-sm bg-white/5">
-                        Initialize
+                    <div>
+                        <h4 class="text-white font-black uppercase italic en-font tracking-tight">Cookie Policy</h4>
+                        <p class="text-gray-400 text-[11px] leading-relaxed mt-1">
+                            เราใช้คุกกี้เพื่อเพิ่มประสิทธิภาพในการใช้งาน และมอบประสบการณ์ที่ดีที่สุดบนระบบ <span
+                                class="text-white">NS CLOUD</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 w-full md:w-auto">
+                    <button onclick="acceptCookies()"
+                        class="flex-1 md:flex-none px-8 py-3 btn-nvidia text-[10px] font-black uppercase tracking-widest rounded-sm">
+                        Accept All
+                    </button>
+                    <button onclick="closeCookieBanner()"
+                        class="px-6 py-3 border border-white/10 text-gray-400 hover:text-white text-[10px] font-black uppercase tracking-widest rounded-sm transition-colors">
+                        Decline
                     </button>
                 </div>
-            `).join('');
-        }
+            </div>
+        </div>
+    </div>
 
-        let slideIndex = 0;
-        function runSlider() {
-            const slides = document.querySelectorAll(".slide-item");
-            slides.forEach(s => s.classList.remove("active"));
-            slideIndex = (slideIndex + 1) % slides.length;
-            slides[slideIndex].classList.add("active");
-            setTimeout(runSlider, 6000);
-        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPlans(standardPlans, 'standard-plans', 'standard');
-            renderPlans(proPlans, 'pro-plans', 'enterprise');
-            runSlider();
-        });
 
-        function copyLineID() {
-            const id = "nbfdev_9954";
-            const textArea = document.createElement("textarea");
-            textArea.value = id;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            const toast = document.getElementById('toast');
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 2500);
-        }
+    <!-- เมนูแจ้งเตือน -->
+    <div id="announcementModal"
+        class="fixed inset-0 z-[300] hidden items-center justify-center px-4 bg-black/90 backdrop-blur-md">
+        <div
+            class="pro-card w-full max-w-lg p-8 md:p-10 rounded-sm relative border-red-500/30 shadow-[0_0_50px_rgba(239,68,68,0.15)] transform scale-95 opacity-0 transition-all duration-300">
 
-        function openModal() {
-            const modal = document.getElementById('contactModal');
-            const inner = modal.querySelector('.pro-card');
-            modal.classList.add('modal-active');
-            modal.classList.remove('hidden');
-            setTimeout(() => inner.classList.add('animate-modal-pop'), 10);
-            document.body.style.overflow = 'hidden';
-        }
+            <div class="text-center mb-8">
+                <div
+                    class="w-20 h-20 bg-red-500/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-red-500/20">
+                    <i class="ph-fill ph-warning-octagon text-5xl text-red-500"></i>
+                </div>
+                <h3 class="text-2xl font-black text-white en-font uppercase tracking-tight italic">Important Notice</h3>
+                <p class="text-gray-500 text-[10px] uppercase tracking-[0.2em] font-bold mt-2">
+                    โปรดอ่านข้อตกลงก่อนเข้าใช้งาน</p>
+            </div>
 
-        function closeModal() {
-            const modal = document.getElementById('contactModal');
-            const inner = modal.querySelector('.pro-card');
-            inner.classList.remove('animate-modal-pop');
-            modal.classList.remove('modal-active');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
+            <div class="space-y-6 mb-10 text-sm leading-relaxed">
+                <div class="bg-black/50 p-4 border-l-4 border-red-500">
+                    <p class="text-red-400 font-bold mb-1">● นโยบายความรับผิดชอบ</p>
+                    <p class="text-gray-400">หากเกิดความเสียหายจากการที่ท่านติดตั้ง <span
+                            class="text-white underline">โปรแกรมอันตรายหรือซอฟต์แวร์ที่มีความเสี่ยง</span>
+                        ทางเราจะไม่รับผิดชอบต่อความเสียหายหรือข้อมูลสูญหายในทุกกรณี</p>
+                </div>
 
-        window.onclick = e => { if (e.target.id === 'contactModal') closeModal(); }
-    </script>
+                <div class="bg-black/50 p-4 border-l-4 border-nvidia-green">
+                    <p class="text-nvidia-green font-bold mb-1">● การแก้ปัญหาความล่าช้า (Lag/Delay)</p>
+                    <p class="text-gray-400">หากระบบช้าหรือดีเลย์ <span
+                            class="text-white">กรุณาตรวจสอบว่าท่านได้ติดตั้งโปรแกรมเสริม (1.1.1.1 with WARP)</span>
+                        ตามที่เราแจ้งไว้แล้วหรือยัง ซึ่งจะช่วยให้การใช้งานลื่นไหลขึ้น</p>
+                </div>
+            </div>
+
+            <button onclick="closeAnnouncement()"
+                class="w-full py-4 bg-white text-black font-black text-xs uppercase tracking-[0.3em] rounded-sm hover:bg-gray-200 transition-all shadow-lg">
+                I AGREE & UNDERSTAND
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+
 </body>
 
 </html>

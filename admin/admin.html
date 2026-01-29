@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NS Cloud - Secure Infrastructure</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Kanit:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        :root {
+            --nvidia-green: #76b900;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Security Gate Animation */
+        #security-gate {
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 9999;
+        }
+
+        .gate-hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(1.2);
+            filter: blur(20px);
+        }
+
+        /* Background Matrix Effect */
+        .matrix-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            overflow: hidden;
+        }
+
+        .matrix-bg::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(0deg, transparent 24%, rgba(118, 185, 0, .05) 25%, rgba(118, 185, 0, .05) 26%, transparent 27%, transparent 74%, rgba(118, 185, 0, .05) 75%, rgba(118, 185, 0, .05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(118, 185, 0, .05) 25%, rgba(118, 185, 0, .05) 26%, transparent 27%, transparent 74%, rgba(118, 185, 0, .05) 75%, rgba(118, 185, 0, .05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+        }
+
+        .btn-nvidia {
+            background: var(--nvidia-green);
+            color: #000;
+            transition: all 0.3s;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .btn-nvidia:hover {
+            background: #8ade00;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(118, 185, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="security-gate" class="fixed inset-0 bg-black flex items-center justify-center p-6 text-center">
+        <div class="matrix-bg"></div>
+        <div class="relative z-10 max-w-md w-full space-y-8 animate-pulse">
+            <div class="relative inline-block">
+                <i class="ph-fill ph-shield-check text-8xl text-[var(--nvidia-green)]"></i>
+                <span class="absolute -top-2 -right-2 bg-red-600 text-[10px] px-2 py-1 rounded font-bold">FIREWALL
+                    ACTIVE</span>
+            </div>
+            <div class="space-y-2">
+                <h2 class="text-4xl font-black italic uppercase en-font tracking-tighter">NS <span
+                        style="color:var(--nvidia-green)">Secure</span> Proxy</h2>
+                <p class="text-gray-500 text-xs tracking-widest uppercase">Unauthorized access is strictly prohibited
+                </p>
+            </div>
+            <div class="bg-white/5 border border-white/10 p-5 rounded text-sm text-gray-400 leading-relaxed">
+                ระบบตรวจพบการพยายามเข้าถึงข้อมูล <br>
+                กรุณายืนยันตัวตนเพื่อใช้งาน <br>
+                <span class="text-red-500 font-bold">คำเตือน: การเปิด DevTools จะทำให้ระบบตัดการทำงานทันที</span>
+            </div>
+            <button onclick="unlockSite()" class="w-full py-4 btn-nvidia text-xs">Access Mainframe</button>
+            <p class="text-[9px] text-gray-700 font-bold uppercase tracking-[0.3em]">Hardware ID Logging Enabled</p>
+        </div>
+    </div>
+
+    <div id="main-content" class="min-h-screen flex flex-col items-center justify-center p-10">
+        <nav
+            class="fixed top-0 w-full p-6 flex justify-between items-center border-b border-white/5 bg-black/50 backdrop-blur-xl">
+            <div class="flex items-center space-x-2">
+                <div
+                    class="w-8 h-8 bg-[var(--nvidia-green)] rounded-sm flex items-center justify-center font-black text-black">
+                    NS</div>
+                <span class="font-black uppercase tracking-tighter italic">Cloud Infrastructure</span>
+            </div>
+            <div class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">System Status: <span
+                    class="text-[var(--nvidia-green)]">Online</span></div>
+        </nav>
+
+        <div class="text-center space-y-6 max-w-4xl">
+            <h1 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">
+                Experience <br> <span
+                    class="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-800">Extreme Power</span>
+            </h1>
+            <p class="text-gray-400 text-lg max-w-xl mx-auto">ยินดีต้อนรับสู่ NS Cloud ระบบเช่า GPU
+                ประสิทธิภาพสูงเพื่อการรัน AI และ 3D Rendering ระดับ Enterprise</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left mt-10">
+                <div class="p-6 border border-white/10 bg-white/5 rounded">
+                    <h3 class="text-[var(--nvidia-green)] font-black uppercase text-xs mb-2 tracking-widest">GPU Fleet
+                    </h3>
+                    <p class="text-xl font-bold italic">RTX PRO 6000 Blackwell</p>
+                </div>
+                <div class="p-6 border border-white/10 bg-white/5 rounded">
+                    <h3 class="text-[var(--nvidia-green)] font-black uppercase text-xs mb-2 tracking-widest">Network
+                    </h3>
+                    <p class="text-xl font-bold italic">2-5 Gbps Backbone</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ปลดล็อคหน้าเว็บ
+        function unlockSite() {
+            document.getElementById('security-gate').classList.add('gate-hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ระบบเตะออก (Redirect)
+        const kickOut = () => {
+            window.location.replace("https://media1.tenor.com/m/QKLETQ9bJKsAAAAd/lloyd-frontera.gif");
+        };
+
+        // 1. บล็อกการคลิกขวา
+        document.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            kickOut();
+        });
+
+        // 2. บล็อกปุ่ม Inspect / View Source
+        document.addEventListener('keydown', e => {
+            if (
+                e.keyCode === 123 || // F12
+                (e.ctrlKey && e.shiftKey && (e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) || // Ctrl+Shift+I/J/C
+                (e.ctrlKey && e.keyCode === 85) || // Ctrl+U
+                (e.ctrlKey && e.keyCode === 83)    // Ctrl+S
+            ) {
+                e.preventDefault();
+                kickOut();
+            }
+        });
+
+        // 3. INFINITY DEBUGGER (ฝันร้ายของแฮ็กเกอร์)
+        // ถ้าเขาเปิด Console ทิ้งไว้ สคริปต์นี้จะทำให้หน้าเว็บค้างทันที
+        setInterval(function () {
+            (function () {
+                var start = new Date();
+                debugger;
+                var end = new Date();
+                if (end - start > 100) {
+                    kickOut();
+                }
+            }());
+        }, 500);
+
+        // 4. ตรวจจับการเปิด Console จากขนาดหน้าต่าง
+        window.addEventListener('resize', () => {
+            if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
+                kickOut();
+            }
+        });
+
+        // 5. Console Troll & Auto Clear
+        setInterval(() => {
+            console.clear();
+            console.log("%c[!] SECURITY BREACH DETECTED", "color: red; font-size: 50px; font-weight: bold;");
+            console.log("%cระบบกำลังส่งข้อมูลของคุณให้ Lloyd... ยินดีด้วยคุณถูกแบน", "color: white; font-size: 20px;");
+        }, 1000);
+    </script>
+
+</body>
+
+</html>
