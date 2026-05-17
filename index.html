@@ -3,322 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NS Gateway</title>
-    <!-- โหลด Tailwind CSS ผ่าน CDN สำหรับ UI แบบ Cloud Modern -->
+    <title>Redirecting | NS Gateway</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- โหลดฟอนต์ Inter จาก Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            font-family: 'Inter', sans-serif;
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Simple spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        body {
-            margin: 0;
-            padding: 0;
+        /* Subtle fade in */
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
         }
-
-        /* อนิเมชันจำลองเมฆลอย */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes float-delayed {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .animate-float-delayed {
-            animation: float-delayed 8s ease-in-out infinite;
-            animation-delay: 2s;
-        }
-        
-        @keyframes fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .animate-fade-in-up {
-            animation: fade-in-up 0.8s ease-out;
-            animation-fill-mode: both; /* ให้คงสถานะสุดท้ายหลังแอนิเมชันจบ */
-        }
-
-        /* เพิ่มแอนิเมชันปรากฏตัวแบบนุ่มนวล (Pop-in) */
-        @keyframes pop-in {
-            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        
-        .animate-pop-in {
-            animation: pop-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0; /* ซ่อนไว้ก่อนแอนิเมชันเริ่ม */
-        }
-
-        /* เอฟเฟกต์แสงสะท้อนวิ่งผ่านปุ่ม */
-        @keyframes shine {
-            0% { left: -100%; }
-            20% { left: 100%; }
-            100% { left: 100%; }
-        }
-        
-        .btn-shine::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 4s infinite ease-in-out;
-        }
-
-        /* ตัวหน่วงเวลาสำหรับแอนิเมชันแบบไล่ลำดับ */
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-        .delay-400 { animation-delay: 400ms; }
     </style>
 </head>
+<body class="bg-gray-50 min-h-screen flex flex-col text-gray-800 antialiased selection:bg-blue-100 selection:text-blue-900">
 
-<body class="bg-slate-50 min-h-screen flex flex-col relative overflow-x-hidden overflow-y-auto text-slate-800 selection:bg-blue-500/30">
-
-    <!-- Navbar -->
-    <nav class="w-full border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="h-8 w-8 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
-                    <span class="text-white text-xs font-bold">NS</span>
-                </div>
-                <span class="text-lg font-bold tracking-tight text-slate-800">NS_<span class="text-blue-600">Server</span></span>
+    <!-- Minimal Header -->
+    <header class="w-full p-6 flex justify-between items-center absolute top-0">
+        <div class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center">
+                <span class="text-white text-[10px] font-bold">NS</span>
             </div>
-            <div class="hidden sm:flex items-center space-x-8 text-xs font-semibold uppercase tracking-wider text-slate-500">
-                <a href="#" class="hover:text-blue-600 transition">Gateway</a>
-                <a href="#" class="hover:text-blue-600 transition">Services</a>
-                <a href="#" class="hover:text-blue-600 transition">Support</a>
-            </div>
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span class="text-xs font-medium text-slate-600">All Systems Operational</span>
-            </div>
+            <span class="font-medium text-sm text-gray-700">Gateway</span>
         </div>
-    </nav>
-
-    <!-- พื้นหลังสไตล์ Cloud -->
-    <div class="fixed top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-300/30 rounded-full mix-blend-multiply filter blur-[120px] animate-float pointer-events-none"></div>
-    <div class="fixed bottom-1/4 right-[-5%] w-[400px] h-[400px] bg-cyan-300/20 rounded-full mix-blend-multiply filter blur-[100px] animate-float-delayed pointer-events-none"></div>
-    <!-- เพิ่มวงแสงจางๆ ตรงกลางให้ดูมีมิติ -->
-    <div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-100/20 rounded-full mix-blend-multiply filter blur-[150px] animate-float pointer-events-none delay-300"></div>
-
-    <!-- Main Content Wrapper -->
-    <main class="flex-grow flex flex-col items-center justify-center py-16 px-4 relative z-10 w-full">
-
-        <!-- กล่องเนื้อหาหลัก (Gateway Card) -->
-        <div class="bg-white/60 backdrop-blur-xl rounded-3xl p-1 shadow-2xl shadow-slate-200/50 max-w-md w-full border border-white/80 relative overflow-hidden group animate-pop-in">
-            <div class="absolute inset-0 bg-gradient-to-br from-blue-100/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
-            <div class="bg-white rounded-[22px] p-8 relative z-10 h-full">
-
-                <!-- โลโก้ & หัวข้อ -->
-                <div class="flex flex-col items-center text-center animate-fade-in-up delay-100">
-                    <div class="w-20 h-20 bg-slate-50 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-slate-100 relative group-hover:scale-110 transition-transform duration-500 ease-out">
-                        <div class="absolute inset-0 bg-blue-50/50 blur-xl rounded-full"></div>
-                        <div class="h-12 w-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center relative z-10">
-                            <span class="text-white text-xl font-bold">☁️</span>
-                        </div>
-                    </div>
-
-                    <h1 class="text-3xl font-extrabold tracking-tight text-slate-900">Central <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Gateway</span></h1>
-                    <p class="text-slate-500 mt-3 text-sm leading-relaxed max-w-[280px]">
-                        เว็บนี้คือหน้าตัวกลาง (Gateway)<br>สำหรับการเชื่อมต่อและนำทางคุณไปยัง Server ของเรา
-                    </p>
-                </div>
-
-                <!-- แถบแสดงสถานะ -->
-                <div class="mt-8 flex justify-center animate-fade-in-up delay-200">
-                    <div id="status-badge" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-50 text-slate-600 text-xs font-semibold tracking-wide border border-slate-200 transition-colors duration-300">
-                        <span id="status-dot" class="w-2 h-2 rounded-full bg-slate-300 animate-pulse"></span>
-                        <span id="status-text">INITIALIZING...</span>
-                    </div>
-                </div>
-
-                <!-- ปุ่มเข้าสู่ระบบ -->
-                <div class="mt-8 animate-fade-in-up delay-300">
-                    <!-- เปลี่ยน target เป็น _blank เพื่อให้เปิดแท็บใหม่แทน จะช่วยลดปัญหาการโหลดหน้าเว็บทับกัน -->
-                    <a id="ns-cloud-link" href="#" target="_blank" class="group relative flex items-center justify-center w-full py-4 px-4 bg-slate-800 text-slate-400 rounded-xl font-bold tracking-wide transition-all duration-500 cursor-not-allowed pointer-events-none overflow-hidden border border-slate-700">
-                        <span id="btn-icon" class="mr-3 flex items-center justify-center relative z-10">
-                            <svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        </span>
-                        <span id="btn-text" class="relative z-10">CONNECTING...</span>
-                    </a>
-                </div>
-
-                <!-- เวลาอัปเดต และ Server Info -->
-                <div class="mt-8 grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 animate-fade-in-up delay-400">
-                    <div class="text-center">
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">Last Sync</p>
-                        <div class="text-xs text-slate-600 font-mono flex items-center justify-center gap-1">
-                            <svg class="w-3 h-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span id="last-update">--:--:--</span>
-                        </div>
-                    </div>
-                    <div class="text-center border-l border-slate-200">
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider mb-1">Region</p>
-                        <div class="text-xs text-slate-600 font-mono flex items-center justify-center gap-1">
-                            <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                            <span>TH-BKK1</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="flex items-center gap-2">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-xs text-gray-500 font-medium">System Operational</span>
         </div>
+    </header>
 
-        <!-- Feature Cards -->
-        <div class="mt-8 max-w-2xl w-full grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
-            <div class="animate-fade-in-up delay-200 bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-slate-200 shadow-lg shadow-slate-200/50 flex flex-col items-center text-center transition hover:-translate-y-2 hover:shadow-xl hover:shadow-blue-500/10 hover:bg-white duration-300">
-                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-3">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-8 md:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.04)] max-w-sm w-full border border-gray-100 fade-in">
+            
+            <div class="flex flex-col items-center text-center">
+                <div class="spinner mb-6"></div>
+                
+                <h1 class="text-xl font-semibold text-gray-900 mb-2">กำลังพาคุณไปยังหน้าหมายเหตุ</h1>
+                <p class="text-sm text-gray-500 mb-6">
+                    กรุณารอสักครู่ ระบบกำลังเชื่อมต่อไปยังเซิร์ฟเวอร์ที่ปลอดภัย
+                </p>
+
+                <!-- Countdown & Status -->
+                <div class="w-full bg-gray-50 rounded-xl p-4 mb-6">
+                    <div class="flex flex-col items-center justify-center gap-1">
+                        <span class="text-xs text-gray-500 uppercase tracking-wide font-medium">เปลี่ยนเส้นทางใน</span>
+                        <div class="text-3xl font-semibold text-blue-600">
+                            <span id="countdown">3</span>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="font-bold text-sm text-slate-800 mb-1">High Performance</h3>
-                <p class="text-xs text-slate-500">เชื่อมต่อรวดเร็ว ลื่นไหล ไม่สะดุด ด้วยสถาปัตยกรรมระดับองค์กร</p>
+
+                <!-- Status Badge -->
+                <div id="status-badge" class="inline-flex items-center gap-2 text-xs font-medium text-amber-600 bg-amber-50 px-3 py-1.5 rounded-full mb-6 transition-colors">
+                    <span id="status-dot" class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                    <span id="status-text">กำลังดึงข้อมูลเซิร์ฟเวอร์...</span>
+                </div>
+
+                <!-- Manual Redirect -->
+                <button id="manual-redirect" class="text-sm text-gray-400 hover:text-blue-600 transition-colors">
+                    คลิกที่นี่ หากระบบไม่เปลี่ยนเส้นทางอัตโนมัติ
+                </button>
             </div>
-            <div class="animate-fade-in-up delay-300 bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-slate-200 shadow-lg shadow-slate-200/50 flex flex-col items-center text-center transition hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-500/10 hover:bg-white duration-300">
-                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mb-3">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
+            
+            <!-- Server Info (Minimal) -->
+            <div class="mt-8 pt-4 border-t border-gray-100 flex justify-between text-[10px] text-gray-400">
+                <div class="flex gap-1 items-center">
+                    <span>Sync:</span>
+                    <span id="last-update">--:--:--</span>
                 </div>
-                <h3 class="font-bold text-sm text-slate-800 mb-1">Secure Protocol</h3>
-                <p class="text-xs text-slate-500">เข้ารหัสข้อมูลระหว่างคุณและเซิร์ฟเวอร์ด้วยมาตรฐานความปลอดภัยสูง</p>
-            </div>
-            <div class="animate-fade-in-up delay-400 bg-white/80 backdrop-blur-md rounded-2xl p-5 border border-slate-200 shadow-lg shadow-slate-200/50 flex flex-col items-center text-center transition hover:-translate-y-2 hover:shadow-xl hover:shadow-purple-500/10 hover:bg-white duration-300">
-                <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-3">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                    </svg>
-                </div>
-                <h3 class="font-bold text-sm text-slate-800 mb-1">Always Online</h3>
-                <p class="text-xs text-slate-500">ระบบเกตเวย์อัจฉริยะช่วยค้นหา URL ล่าสุดของเซิร์ฟเวอร์อัตโนมัติ</p>
+                <div>Region: TH-BKK1</div>
             </div>
         </div>
     </main>
 
     <!-- Footer -->
-    <footer class="w-full border-t border-slate-200 bg-white z-10 py-6 mt-auto">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-slate-500">
-            <div>&copy; 2025 NS_Cloud Enterprise Solutions. All rights reserved.</div>
-            <div class="flex items-center space-x-6">
-                <a href="#" class="hover:text-blue-600 transition">Privacy Policy</a>
-                <a href="#" class="hover:text-blue-600 transition">Terms of Service</a>
-                <a href="#" class="hover:text-blue-600 transition">System Status</a>
-            </div>
-        </div>
+    <footer class="w-full p-6 text-center text-xs text-gray-400">
+        &copy; 2025 NS Enterprise Solutions.
     </footer>
 
     <script>
         // =================================================================
-        // ⚙️ การตั้งค่าการทำงาน (กำหนด Server ของคุณได้ที่นี่)
+        // ⚙️ การตั้งค่าการทำงาน
         // =================================================================
         const config = {
-            // เลือกโหมด: 
-            // true = ดึงจากไฟล์ข้อความ .txt (เหมาะสำหรับเซิร์ฟเวอร์ที่เปลี่ยน IP บ่อย)
-            // false = ใช้ URL ตายตัว (เหมาะสำหรับเซิร์ฟเวอร์ที่มี Domain/IP คงที่)
             isDynamic: true, 
-
-            // กรณี isDynamic = true: ใส่ลิงก์ไปยังไฟล์ .txt ของคุณ
             dynamicUrlSource: "https://raw.githubusercontent.com/nbfdev/servers/main/url.txt",
-
-            // กรณี isDynamic = false: ใส่ URL เซิร์ฟเวอร์ของคุณโดยตรง
-            staticUrl: "https://your-server.com" 
+            staticUrl: "https://your-server.com",
+            redirectDelay: 3,
+            autoRedirect: true
         };
         // =================================================================
 
-        // Element References
-        const btn = document.getElementById("ns-cloud-link");
-        const btnText = document.getElementById("btn-text");
-        const btnIcon = document.getElementById("btn-icon");
         const statusBadge = document.getElementById("status-badge");
         const statusDot = document.getElementById("status-dot");
         const statusText = document.getElementById("status-text");
         const lastUpdateTxt = document.getElementById("last-update");
+        const countdownSpan = document.getElementById("countdown");
+        const manualBtn = document.getElementById("manual-redirect");
 
-        // SVG Icons
-        const iconReady = `<svg class="w-5 h-5 text-current transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`;
-        const iconWaiting = `<svg class="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
-        const iconError = `<svg class="w-5 h-5 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>`;
+        let targetUrl = null;
+        let redirectTimeout = null;
+        let countdownInterval = null;
 
-        // ฟังก์ชันปรับเปลี่ยน UI ตามสถานะ
-        function updateUI(state, url = "#") {
+        function updateUI(state, url = null) {
             const now = new Date();
             lastUpdateTxt.innerText = now.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
-            btn.className = "group relative flex items-center justify-center w-full py-4 px-4 rounded-xl font-bold tracking-wide transition-all duration-500 overflow-hidden outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white border";
-
-            if (state === 'ready') {
-                btn.href = url;
-                btn.classList.add('bg-gradient-to-r', 'from-blue-600', 'to-blue-700', 'text-white', 'border-blue-600', 'hover:from-blue-700', 'hover:to-blue-800', 'hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]', 'focus:ring-blue-600', 'cursor-pointer', 'pointer-events-auto', 'btn-shine');
-                btnText.innerText = "ACCESS CONSOLE";
-                btnIcon.innerHTML = iconReady;
-
-                statusBadge.className = "inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-emerald-50 text-emerald-600 text-xs font-bold tracking-widest border border-emerald-200";
-                statusDot.className = "w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]";
-                statusText.innerText = "ONLINE & READY";
-
-            } else if (state === 'waiting') {
-                btn.href = "#";
-                btn.classList.add('bg-slate-100', 'text-slate-500', 'border-slate-200', 'cursor-not-allowed', 'pointer-events-none');
-                btn.classList.remove('btn-shine');
-                btnText.innerText = "AWAITING CONNECTION...";
-                btnIcon.innerHTML = iconWaiting;
-
-                statusBadge.className = "inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-50 text-amber-600 text-xs font-bold tracking-widest border border-amber-200";
-                statusDot.className = "w-2 h-2 rounded-full bg-amber-500 animate-pulse shadow-[0_0_8px_rgba(245,158,11,0.3)]";
-                statusText.innerText = "STANDBY MODE";
-
-            } else if (state === 'error') {
-                btn.href = "#";
-                btn.classList.add('bg-red-50', 'text-red-500', 'border-red-200', 'cursor-not-allowed', 'pointer-events-none');
-                btn.classList.remove('btn-shine');
-                btnText.innerText = "CONNECTION FAILED";
-                btnIcon.innerHTML = iconError;
-
-                statusBadge.className = "inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-red-50 text-red-600 text-xs font-bold tracking-widest border border-red-200";
-                statusDot.className = "w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)]";
-                statusText.innerText = "SYSTEM OFFLINE";
+            if (state === 'ready' && url) {
+                statusBadge.className = "inline-flex items-center gap-2 text-xs font-medium text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-full mb-6 transition-colors";
+                statusDot.className = "w-1.5 h-1.5 rounded-full bg-emerald-500";
+                statusText.innerText = "เชื่อมต่อสำเร็จ กำลังเปลี่ยนเส้นทาง";
+                targetUrl = url;
+                
+                if (config.autoRedirect) {
+                    startRedirectCountdown(url);
+                }
+            } 
+            else if (state === 'waiting') {
+                statusBadge.className = "inline-flex items-center gap-2 text-xs font-medium text-amber-600 bg-amber-50 px-3 py-1.5 rounded-full mb-6 transition-colors";
+                statusDot.className = "w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse";
+                statusText.innerText = "กำลังดึงข้อมูลเซิร์ฟเวอร์...";
+            } 
+            else if (state === 'error') {
+                statusBadge.className = "inline-flex items-center gap-2 text-xs font-medium text-red-600 bg-red-50 px-3 py-1.5 rounded-full mb-6 transition-colors";
+                statusDot.className = "w-1.5 h-1.5 rounded-full bg-red-500";
+                statusText.innerText = "ไม่พบเซิร์ฟเวอร์ หรือลิงก์เสีย";
             }
         }
 
-        // ฟังก์ชันดึง URL ล่าสุด
+        function startRedirectCountdown(url) {
+            let remaining = config.redirectDelay;
+            countdownSpan.innerText = remaining;
+            
+            if (redirectTimeout) clearTimeout(redirectTimeout);
+            if (countdownInterval) clearInterval(countdownInterval);
+            
+            countdownInterval = setInterval(() => {
+                remaining--;
+                if (remaining >= 0) {
+                    countdownSpan.innerText = remaining;
+                }
+                if (remaining <= 0) {
+                    clearInterval(countdownInterval);
+                }
+            }, 1000);
+            
+            redirectTimeout = setTimeout(() => {
+                performRedirect(url);
+            }, config.redirectDelay * 1000);
+        }
+        
+        function performRedirect(url) {
+            if (url && url !== "#") {
+                window.location.href = url;
+            } else {
+                statusText.innerText = "URL ไม่ถูกต้อง";
+                statusBadge.className = "inline-flex items-center gap-2 text-xs font-medium text-red-600 bg-red-50 px-3 py-1.5 rounded-full mb-6 transition-colors";
+            }
+        }
+
         async function getLatestUrl() {
-            // หากผู้ใช้เลือกใช้ URL ตายตัว (Static)
             if (!config.isDynamic) {
-                updateUI('ready', config.staticUrl);
+                if (config.staticUrl && config.staticUrl.startsWith("https://")) {
+                    updateUI('ready', config.staticUrl);
+                } else if (config.staticUrl && config.staticUrl.startsWith("http://")) {
+                    const httpsUrl = config.staticUrl.replace("http://", "https://");
+                    updateUI('ready', httpsUrl);
+                } else {
+                    updateUI('error');
+                }
                 return;
             }
 
-            // หากผู้ใช้เลือกดึงจากไฟล์ (Dynamic)
             try {
+                updateUI('waiting');
                 const response = await fetch(config.dynamicUrlSource, { cache: 'no-store' });
                 if (!response.ok) throw new Error("Network response was not ok");
                 const latestUrl = await response.text();
@@ -327,11 +206,13 @@
                 if (cleanUrl.startsWith("https://")) {
                     updateUI('ready', cleanUrl);
                 } else if (cleanUrl.startsWith("http://")) {
-                    // แก้ไข Mixed Content: เปลี่ยน HTTP เป็น HTTPS
                     const httpsUrl = cleanUrl.replace("http://", "https://");
                     updateUI('ready', httpsUrl);
+                } else if (cleanUrl !== "") {
+                    const fixedUrl = "https://" + cleanUrl;
+                    updateUI('ready', fixedUrl);
                 } else {
-                    updateUI('waiting');
+                    updateUI('error');
                 }
             } catch (err) {
                 console.error("ดึงข้อมูลไม่สำเร็จ:", err);
@@ -339,18 +220,26 @@
             }
         }
 
-        // เริ่มต้นการทำงาน
+        manualBtn.addEventListener('click', () => {
+            if (targetUrl && targetUrl !== "#") {
+                if (redirectTimeout) clearTimeout(redirectTimeout);
+                if (countdownInterval) clearInterval(countdownInterval);
+                performRedirect(targetUrl);
+            } else {
+                statusText.innerText = "ไม่พบ URL ปลายทาง";
+                statusBadge.className = "inline-flex items-center gap-2 text-xs font-medium text-red-600 bg-red-50 px-3 py-1.5 rounded-full mb-6 transition-colors";
+            }
+        });
+
         getLatestUrl();
         
-        // ให้มันอัปเดตเองทุกๆ 30 วินาที เฉพาะถ้าดึงข้อมูลแบบ Dynamic
         if (config.isDynamic) {
-            setInterval(getLatestUrl, 30000);
+            setInterval(() => {
+                if (targetUrl === null && config.autoRedirect) {
+                    getLatestUrl();
+                }
+            }, 30000);
         }
-
-        /* หมายเหตุ: ส่วน btn.addEventListener('click') ถูกนำออกไป
-           เพื่อให้แท็ก <a> ทำหน้าที่ Redirect อย่างเป็นธรรมชาติ 
-           และรองรับคำสั่งเปิดแท็บใหม่ (target="_blank") อย่างถูกต้อง 
-        */
     </script>
 </body>
 </html>
