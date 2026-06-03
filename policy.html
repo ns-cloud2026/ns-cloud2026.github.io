@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>นโยบายและข้อกำหนดการใช้งาน | NS CLOUD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="policy.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-name">NS <em>CLOUD</em></span>
+            </a>
+            <a href="index.html" class="nav-btn">กลับหน้าแรก</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="doc-header">
+            <h1 class="doc-title">นโยบายความเป็นส่วนตัว & ข้อกำหนดการใช้งาน</h1>
+            <p class="doc-subtitle">โปรดอ่านและทำความเข้าใจข้อตกลงในการใช้บริการเซิร์ฟเวอร์ GPU
+                เพื่อสิทธิประโยชน์และความปลอดภัยในการทำงานของคุณ</p>
+        </div>
+
+        <div class="doc-card" id="terms">
+            <span class="card-tag a">ข้อตกลง</span>
+            <h2 class="card-title">ข้อกำหนดการใช้งาน (Terms of Service)</h2>
+
+            <div class="policy-section">
+                <h3 class="section-title">1. การปฏิเสธความรับผิดชอบต่อการใช้งานของผู้ใช้ (Disclaimer of User Workloads)
+                </h3>
+                <div class="section-body">
+                    <p>ทาง NS CLOUD ให้บริการเฉพาะเช่าเครื่องประมวลผล GPU และทรัพยากรระบบคอมพิวเตอร์เท่านั้น
+                        หากผู้ใช้นำเซิร์ฟเวอร์ไปรันโปรเจกต์ ทำงาน หรือกระทำกิจกรรมใดๆ ที่มีความผิดพลาดทางกฎหมาย
+                        ละเมิดสิทธิ์ หรือสร้างความเสียหายใดๆ ต่อบุคคลภายนอก
+                        <strong>ทางผู้ให้บริการจะไม่รับผิดชอบต่อการกระทำ ผลกระทบ หรือความเสียหายใดๆ
+                            ที่เกิดขึ้นทั้งสิ้น</strong> ผู้เช่าต้องเป็นผู้รับผิดชอบต่อการกระทำของตนแต่เพียงผู้เดียว</p>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h3 class="section-title">2. ข้อห้ามด้านความปลอดภัยและการระงับบริการทันที (Prohibited Actions)</h3>
+                <div class="section-body">
+                    <p>ห้ามผู้ใช้งานใช้ทรัพยากรของเซิร์ฟเวอร์ไปในทางที่เป็นอันตราย คุกคามระบบอินเทอร์เน็ต
+                        หรือขัดต่อกฎหมายความมั่นคงทางไซเบอร์โดยเด็ดขาด อาทิเช่น:</p>
+                    <ul class="bullet-list danger">
+                        <li>ทำกิจกรรมที่เป็นการโจมตีเครือข่าย เช่น DDoS, DoS, Port Scanning, Botnet</li>
+                        <li>การส่งสแปม สแกนหาช่องโหว่ระบบอื่น หรือการเจาะระบบ (Hacking) ที่ไม่ได้รับอนุญาต</li>
+                        <li>รันระบบ ซอฟต์แวร์ หรือเนื้อหาที่ผิดกฎหมายทุกประเภท</li>
+                    </ul>
+                    <div class="alert-box danger">
+                        <span class="alert-icon">🛑</span>
+                        <div class="alert-content">
+                            <strong>นโยบายตัดสิทธิ์ทันที:</strong> หากทางเราตรวจพบความผิดปกติ มีหลักฐาน
+                            หรือได้รับการแจ้งเตือนว่ามีการดำเนินกิจกรรมข้อห้ามข้างต้น
+                            <strong>เซิร์ฟเวอร์ดังกล่าวจะถูกปิดตัวลง (Shutdown) และระงับการให้บริการทันที</strong>
+                            โดยไม่มีการแจ้งให้ทราบล่วงหน้าและไม่มีสิทธิ์ขอคืนเงินทุกกรณี
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h3 class="section-title">3. ความเสถียรของสคริปต์ผู้ใช้ (User Script Stability & Issues)</h3>
+                <div class="section-body">
+                    <p>ในกรณีที่ผู้ใช้รันสคริปต์หรือชุดคำสั่งที่ผิดปกติ แปลกปลอม หรือสคริปต์ที่มีปัญหาด้านการเขียนโค้ด
+                        จนส่งผลทำให้ตัวเครื่องเซิร์ฟเวอร์ดับ ทำงานผิดพลาด ระบบล่ม (System Crash) หรือมีปัญหาใดๆ
+                        ที่มีสาเหตุมาจากการรันซอฟต์แวร์ของผู้ใช้เอง
+                        และไม่ได้เกิดขึ้นจากปัญหาโครงสร้างพื้นฐานของผู้ให้บริการ <strong>ทาง NS CLOUD
+                            จะไม่รับผิดชอบต่อความเสียหาย การสูญหายของข้อมูล หรือผลกระทบของโปรเจกต์ใดๆ ทั้งสิ้น</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-card" id="privacy">
+            <span class="card-tag g">ความเป็นส่วนตัว</span>
+            <h2 class="card-title">นโยบายความเป็นส่วนตัว (Privacy Policy)</h2>
+
+            <div class="policy-section">
+                <h3 class="section-title">1. การเก็บรักษาและเข้าถึงข้อมูลส่วนตัว</h3>
+                <div class="section-body">
+                    <p>ระบบเซิร์ฟเวอร์และสภาพแวดล้อมที่จัดสรรให้แก่ผู้ใช้จะได้รับการจำลองแบบแยกส่วนเป็นส่วนตัว (Isolated
+                        Environment) ทีมงานผู้ดูแลระบบของ NS CLOUD
+                        จะเข้าปฏิบัติการเฉพาะในขั้นตอนการติดตั้งเซ็ตอัปเครื่องมือที่ผู้ใช้เลือกในตอนต้น
+                        หรือเพื่อแก้ไขปัญหาความผิดปกติทางเทคนิคของระบบฮาร์ดแวร์/เน็ตเวิร์กตามที่ผู้ใช้ร้องขอเท่านั้น</p>
+                </div>
+            </div>
+
+            <div class="policy-section">
+                <h3 class="section-title">2. การไม่แทรกแซงพื้นที่ทำงานของผู้เช่า</h3>
+                <div class="section-body">
+                    <p>ทางเราเคารพในทรัพย์สินทางปัญญาและความเป็นส่วนตัวของลูกค้าอย่างสูงสุด
+                        ในช่วงเวลาเช่าเซิร์ฟเวอร์ของคุณ <strong>ทีมงานจะไม่มีการเข้าไปยุ่งเกี่ยว ดู แก้ไข
+                            หรือรันคำสั่งใดๆ ในส่วนของพื้นที่จัดเก็บไฟล์และโค้ดโปรเจกต์ของคุณเด็ดขาด</strong>
+                        เพื่อให้มั่นใจว่าไฟล์งานและความรู้เชิงลึกของท่านจะได้รับความปลอดภัยสูงสุด</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 NS CLOUD. สนับสนุนการประมวลผลอย่างรวดเร็วและปลอดภัย | ติดต่อ Admin: <a
+                href="https://line.me/ti/p/~nbfdev_9954" target="_blank">Line ID: nbfdev_9954</a></p>
+        <p style="margin-top: 8px; font-size: 12.5px;"><a href="policy.html#privacy">นโยบายความเป็นส่วนตัว</a> | <a
+                href="policy.html#terms">ข้อกำหนดการใช้งาน</a></p>
+    </footer>
+
+</body>
+
+</html>

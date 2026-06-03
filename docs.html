@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เอกสารการใช้งาน | NS CLOUD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Sarabun:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="docs.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <span class="logo-name">NS <em>CLOUD</em></span>
+            </a>
+            <a href="index.html" class="nav-btn">กลับหน้าแรก</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <div class="doc-header">
+            <h1 class="doc-title">คู่มือและเอกสารการใช้งาน</h1>
+            <p class="doc-subtitle">ทำความเข้าใจขั้นตอนการใช้งานเซิร์ฟเวอร์ GPU, นโยบายความเป็นส่วนตัว
+                และข้อตกลงเกี่ยวกับการควบคุมระบบ</p>
+        </div>
+
+        <div class="doc-card">
+            <div class="card-num">01</div>
+            <h2 class="card-title">การเลือกใช้งานเครื่องมือ (AI Tools)</h2>
+            <div class="card-body">
+                <p>ในการติดต่อเช่าเซิร์ฟเวอร์ GPU คุณสามารถระบุเครื่องมือ (Tools/WebUI)
+                    ที่ต้องการใช้งานในการทำงานได้ตามความต้องการ เช่น <strong>ComfyUI, ConfigUI, Ollama, PyTorch, Stable
+                        Diffusion, vLLM</strong> เป็นต้น</p>
+                <p>ทาง Admin จะทำการติดตั้งสภาพแวดล้อมการทำงานและเครื่องมือที่คุณเลือกให้พร้อมใช้ และจัดส่ง Link URL
+                    ตรงสำหรับเข้าใช้งานผ่านหน้าเว็บเบราว์เซอร์ให้คุณทันทีหลังจากเริ่มบริการ</p>
+            </div>
+        </div>
+
+        <div class="doc-card">
+            <div class="card-num">02</div>
+            <h2 class="card-title">การควบคุมระบบ (Linux OS & SSH Access)</h2>
+            <div class="card-body">
+                <p>เซิร์ฟเวอร์ของ NS CLOUD ทำงานบนระบบปฏิบัติการ <strong>Linux</strong> เป็นหลัก (ไม่มีระบบ GUI หน้าจอ
+                    Desktop ของ Windows หรือ Linux Desktop ทั่วไป)
+                    เพื่อประสิทธิภาพการประมวลผลสูงสุดและตัดทรัพยากรส่วนเกินออก</p>
+                <p>หากคุณมีความจำเป็นต้องการเข้าควบคุม จัดการไฟล์ รันสคริปต์ หรือตั้งค่าตัวเครื่องด้วยตนเองเพิ่มเติม
+                    คุณสามารถแจ้งขอรับสิทธิ์เข้าใช้งานผ่านทาง <strong>SSH Credentials (IP, Port, Username,
+                        Password)</strong> จาก Admin ได้โดยตรง</p>
+                <div class="code-block">
+                    <span class="code-text">ssh username@server_ip -p port</span>
+                    <span class="code-tag">SSH Terminal</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-card">
+            <div class="card-num">03</div>
+            <h2 class="card-title">นโยบายความเป็นส่วนตัว (User Privacy)</h2>
+            <div class="card-body">
+                <p>NS CLOUD ยึดมั่นในเรื่องความเป็นส่วนตัวและความปลอดภัยของข้อมูลลูกค้าเป็นสำคัญที่สุด:</p>
+                <p style="color: #fff; font-weight: 500;">✓ ทางเราจะไม่มีการเข้าไปยุ่งเกี่ยว แทรกแซง รันคำสั่ง
+                    หรือเข้าถึงข้อมูลใดๆ ในเซิร์ฟเวอร์ระหว่างการเช่าใช้งานของคุณเด็ดขาด</p>
+                <p>พื้นที่ประมวลผลและไฟล์งานทั้งหมดจะถูกแยกออกจากกันอย่างเด็ดขาด (Isolated Environment)
+                    เพื่อรับประกันความปลอดภัยของโปรเจกต์ของคุณ</p>
+            </div>
+        </div>
+
+        <div class="doc-card">
+            <div class="card-num">04</div>
+            <h2 class="card-title">การต่อเวลาเช่าเซิร์ฟเวอร์ (Extension Policy)</h2>
+            <div class="card-body">
+                <p>คุณสามารถขอเพิ่มระยะเวลาเช่าเครื่องเพิ่มได้ตามตารางการใช้งาน โดยมีเงื่อนไขดังนี้:</p>
+                <div class="alert-box warning">
+                    <span class="alert-icon">⚠️</span>
+                    <div class="alert-content">
+                        <strong>สำคัญมาก:</strong> หากต้องการต่ออายุการใช้งานเซิร์ฟเวอร์เพื่อความต่อเนื่อง
+                        กรุณาติดต่อขอต่อเวลากับ Admin <strong>ล่วงหน้าอย่างน้อย 20 นาทีก่อนหมดชั่วโมงเช่าเดิม</strong>
+                        เพื่อสิทธิในการต่อเวลาก่อนเครื่องจะคิวเต็มหรือถูกตัดระบบ
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-card">
+            <div class="card-num">05</div>
+            <h2 class="card-title">นโยบายเมื่อหมดเวลาเช่า (Expiration Policy)</h2>
+            <div class="doc-card-body card-body">
+                <p>เพื่อให้ระบบคิวการจัดสรร GPU ทำงานได้เต็มประสิทธิภาพและเป็นธรรมแก่ผู้ใช้อื่นๆ:</p>
+                <div class="alert-box danger">
+                    <span class="alert-icon">🚨</span>
+                    <div class="alert-content">
+                        <strong>แจ้งเตือนการหยุดการทำงาน:</strong>
+                        เมื่อสิ้นสุดระยะเวลาเช่าที่ได้ตกลงกันไว้และไม่มีการแจ้งต่อเวลาก่อนกำหนด
+                        <strong>เซิร์ฟเวอร์จะทำการตัดการทำงานและปิดเครื่องทันที</strong>
+                    </div>
+                </div>
+                <p style="margin-top: 14px;">โปรดทำการบันทึกความคืบหน้าของโมเดล สำรองข้อมูล (Backup)
+                    หรือโอนย้ายไฟล์งานสำคัญออกให้เสร็จสิ้นก่อนถึงเวลาปิดเครื่อง เพื่อป้องกันการสูญหายของข้อมูล</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 NS CLOUD. สนับสนุนการประมวลผลอย่างรวดเร็วและปลอดภัย | ติดต่อ Admin: <a
+                href="https://line.me/ti/p/~nbfdev_9954" target="_blank">Line ID: nbfdev_9954</a></p>
+        <p style="margin-top: 8px; font-size: 12.5px;"><a href="policy.html#privacy">นโยบายความเป็นส่วนตัว</a> | <a
+                href="policy.html#terms">ข้อกำหนดการใช้งาน</a></p>
+    </footer>
+
+</body>
+
+</html>
